@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 int	*get_line(char *buffer)
 {
@@ -21,9 +22,16 @@ int	*get_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	void	*buffer;
-	char	*tmp;
+	static char	*buffer;
+	char		*tmp;
 
-	if (read(fd, buffer[], BUFFER_SIZE) == 0 || get_line(buffer) == 1)
-		return (le resultat);
+	buffer = (char *) calloc(BUFFER_SIZE + 1, sizeof(char));
+	status = read(fd, buffer[], BUFFER_SIZE)
+	tmp = buffer;
+	while (status == BUFFER_SIZE)
+	{
+		status = read(fd, buffer, BUFFER_SIZE);
+		tmp = ft_strjoin(tmp, buffer);
+	}
+	return (tmp);
 }
