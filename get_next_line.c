@@ -13,25 +13,63 @@
 #include "get_next_line.h"
 #include "libft.h"
 
-int	*get_line(char *buffer)
+char	*read_buffer(char **buffer)
 {
-	if (ft_strchr(buffer, '\n') == NULL)
-		return (1);
-	return (0);
+	char	*stock;
+	char	*res;
+	int		len;
+
+	if (!*buffer || !ft_strchr(*buffer, '\n'))
+		return (NULL);
+	len = ft_strchr(*buffer, '\n') - *buffer;
+	res = ft_substr(*buffer, 0, len + 1);
+	stock = *buffer;
+	*buffer = ft_substr(*buffer, len + 1, ft_strlen(*buffer) - (len + 1));
+	free(stock);
+	return (res);
+}
+
+ssize_t	write_buffer(int fd, char **buffer)
+{
+	char	tmp[BUFFER_SIZE + 1];
+	char	*stock;
+	ssize_t	status;
+
+	ft_bzero(tmp, BUFFER_SIZE + 1);
+	status = read(fd, tmp, BUFFER_SIZE);
+	if (!*buffer && status > 0)
+		*buffer = ft_strdup(tmp);
+	else if (status > 0)
+	{
+		stock = *buffer;
+		*buffer = ft_strjoin(*buffer, tmp);
+		free(stock);
+	}
+	return (status);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
+	char		*line;
+	ssize_t		status;
 	char		*tmp;
 
-	buffer = (char *) calloc(BUFFER_SIZE + 1, sizeof(char));
-	status = read(fd, buffer[], BUFFER_SIZE)
-	tmp = buffer;
-	while (status == BUFFER_SIZE)
+	status = 1;
+	while (status > 0)
 	{
-		status = read(fd, buffer, BUFFER_SIZE);
-		tmp = ft_strjoin(tmp, buffer);
+		line = read_buffer(&buffer);
+		if (line)
+			return (line);
+		status = write_buffer(fd, &buffer);
+		if (status < 0)
+			return (NULL);
+		if (status == 0)
+		{
+			tmp = buffer;
+			buffer = NULL;
+			return (tmp);
+		}
 	}
-	return (tmp);
+	return (NULL);
 }
