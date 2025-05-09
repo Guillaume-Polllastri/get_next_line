@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guill <guill@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:24:01 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/09 13:59:15 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:08:18 by guill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft.h"
 
-char	*read_buffer(char **buffer)
+static void	ft_bzero(void *s, size_t n)
+{
+	char	*ptr;
+
+	ptr = (char *) s;
+	while (n > 0)
+	{
+		*ptr = '\0';
+		ptr++;
+		n--;
+	}
+}
+
+static char	*read_buffer(char **buffer)
 {
 	char	*stock;
 	char	*res;
@@ -29,7 +41,7 @@ char	*read_buffer(char **buffer)
 	return (res);
 }
 
-ssize_t	write_buffer(int fd, char **buffer)
+static ssize_t	write_buffer(int fd, char **buffer)
 {
 	char	tmp[BUFFER_SIZE + 1];
 	char	*stock;
