@@ -6,13 +6,13 @@
 /*   By: guill <guill@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:24:01 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/09 14:08:18 by guill            ###   ########.fr       */
+/*   Updated: 2025/05/09 15:48:09 by guill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	char	*ptr;
 
@@ -23,6 +23,16 @@ static void	ft_bzero(void *s, size_t n)
 		ptr++;
 		n--;
 	}
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 static char	*read_buffer(char **buffer)
@@ -50,7 +60,10 @@ static ssize_t	write_buffer(int fd, char **buffer)
 	ft_bzero(tmp, BUFFER_SIZE + 1);
 	status = read(fd, tmp, BUFFER_SIZE);
 	if (!*buffer && status > 0)
-		*buffer = ft_strdup(tmp);
+	{
+		*buffer = (char *) malloc(sizeof(*tmp) * (ft_strlen(tmp) + 1));
+		ft_strlcpy(*buffer, tmp, ft_strlen(tmp) + 1);
+	}
 	else if (status > 0)
 	{
 		stock = *buffer;

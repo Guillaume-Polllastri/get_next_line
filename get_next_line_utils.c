@@ -6,7 +6,7 @@
 /*   By: guill <guill@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 13:57:59 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/09 14:07:12 by guill            ###   ########.fr       */
+/*   Updated: 2025/05/09 16:09:06 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ns);
 }
 
+size_t	ft_strlcpy(char *dst, const char *src, size_t siz)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && (i + 1) < siz)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i < siz)
+		dst[i] = '\0';
+	return (ft_strlen(src));
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
@@ -70,32 +85,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-size_t	ft_strlen(const char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	i;
+	void	*ptr;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*nstr;
-	size_t	len;
-	size_t	i;
-
-	len = ft_strlen(s);
-	nstr = (char *) malloc(sizeof(char) * (len + 1));
-	if (!nstr)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		nstr[i] = s[i];
-		i++;
-	}
-	nstr[i] = '\0';
-	return (nstr);
+	ptr = malloc(nmemb * size);
+	if (ptr != NULL)
+		ft_bzero(ptr, nmemb * size);
+	return (ptr);
 }

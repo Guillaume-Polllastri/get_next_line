@@ -6,7 +6,7 @@
 /*   By: guill <guill@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:19:59 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/09 14:07:12 by guill            ###   ########.fr       */
+/*   Updated: 2025/05/09 15:48:49 by guill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t siz);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
