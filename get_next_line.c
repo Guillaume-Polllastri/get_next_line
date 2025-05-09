@@ -6,7 +6,7 @@
 /*   By: guill <guill@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:24:01 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/09 15:48:09 by guill            ###   ########.fr       */
+/*   Updated: 2025/05/09 19:44:05 by guill            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ static char	*read_buffer(char **buffer)
 
 static ssize_t	write_buffer(int fd, char **buffer)
 {
-	char	tmp[BUFFER_SIZE + 1];
+	char	*tmp;
 	char	*stock;
 	ssize_t	status;
 
-	ft_bzero(tmp, BUFFER_SIZE + 1);
+	tmp = (char *) ft_calloc(BUFFER_SIZE + 1, sizeof(*tmp));
 	status = read(fd, tmp, BUFFER_SIZE);
 	if (!*buffer && status > 0)
-	{
-		*buffer = (char *) malloc(sizeof(*tmp) * (ft_strlen(tmp) + 1));
-		ft_strlcpy(*buffer, tmp, ft_strlen(tmp) + 1);
-	}
+		*buffer = tmp;
 	else if (status > 0)
 	{
 		stock = *buffer;
 		*buffer = ft_strjoin(*buffer, tmp);
 		free(stock);
+		free(tmp);
 	}
+	else
+		free(tmp);
 	return (status);
 }
 
@@ -80,6 +80,8 @@ char	*get_next_line(int fd)
 	ssize_t		status;
 	char		*tmp;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	status = 1;
 	while (status > 0)
 	{
@@ -91,6 +93,11 @@ char	*get_next_line(int fd)
 			return (NULL);
 		if (status == 0)
 		{
+			if (buffer == NULL || ft_strlen(buffer) == 0)
+			{
+				free(buffer);
+				return (NULL);
+			}
 			tmp = buffer;
 			buffer = NULL;
 			return (tmp);

@@ -3,30 +3,31 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+         #
+#    By: guill <guill@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/27 21:14:10 by gpollast          #+#    #+#              #
-#    Updated: 2025/04/30 18:28:54 by gpollast         ###   ########.fr        #
+#    Updated: 2025/05/09 18:14:18 by guill            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=9999
+CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=2
 LDFLAGS = -L. -lft -lbsd
-TARGET = a.out
+NAME = get_next_line
 MAKE = make
-SRCS =	main.c \
-		get_next_line.c
+SRCS =	get_next_line.c \
+		get_next_line_utils.c
 	
 OBJS = $(SRCS:.c=.o)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
 all: $(OBJS)
-	$(CC) $(OBJS) $(LDFLAGS) -o $(TARGET)
+
 clean:
 	rm -f $(OBJS)
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(NAME)
 re: fclean all
 
 test: all 
