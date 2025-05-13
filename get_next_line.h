@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:19:59 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/13 11:22:57 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:24:42 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-
 
 # include <unistd.h>
 # include <stdlib.h>
