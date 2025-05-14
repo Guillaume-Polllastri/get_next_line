@@ -6,7 +6,7 @@
 /*   By: gpollast <gpollast@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 17:24:01 by gpollast          #+#    #+#             */
-/*   Updated: 2025/05/13 12:35:42 by gpollast         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:44:26 by gpollast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,13 @@ char	*get_next_line(int fd)
 			return (line);
 		status = write_buffer(fd, &buffer);
 		if (status < 0)
-		{
-			free(buffer);
-			buffer = NULL;
-			return (NULL);
-		}
+			return (free(buffer), buffer = NULL, NULL);
 		if (status == 0)
 		{
 			if (buffer == NULL || ft_strlen(buffer) == 0)
-			{
-				free(buffer);
-				buffer = NULL;
-				return (NULL);
-			}
+				return (free(buffer), buffer = NULL, NULL);
 			line = ft_substr(buffer, 0, ft_strlen(buffer));
-			free(buffer);
-			buffer = NULL;
-			return (line);
+			return (free(buffer), buffer = NULL, line);
 		}
 	}
 	return (NULL);
